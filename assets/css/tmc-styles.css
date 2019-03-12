@@ -1,0 +1,77 @@
+h1.calendar-heading{
+  margin-top: -20px;
+  margin-bottom: 60px;
+  text-align: center;
+  background: aliceblue;
+  padding: 10px;
+}
+
+.fc-scroller {
+   overflow-y: hidden !important;
+}
+.fc-head table {
+    margin-bottom: 0;
+}
+button#create-button{
+  width: 100%;
+  margin-top: 35px;
+  height: 100px;
+  border: 2px solid #87bad1;
+  color: white;
+  background: #3a87ad;
+  font-weight: bold;
+}
+
+button#create-button:hover {
+    font-size: 18px;
+    border: none;
+    background: #63b6ca;
+}
+.validation{
+  border:2px solid red !important;
+  background: #bc294421 !important;
+}
+
+.loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3a87ad; /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  margin: auto;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+  margin-top: 325px;
+  margin-bottom: 325px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.fc-view-container {
+  min-height: ;
+}
+
+div#ui-datepicker-div{
+  z-index: 2 !important;
+
+}
+input.datepicker{
+    font-family: monospace;
+    font-size: 25px;
+    padding: 20px 10px;
+}
+.calculation-area p {
+    font-size: 22px;
+}
+.form-group label {
+      font-size: 20px;
+}
+.form-group p {
+      font-size: 28px;
+}
+.form-group p.small-text {
+  font-size: 17px;
+}

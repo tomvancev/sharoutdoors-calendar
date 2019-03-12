@@ -1,0 +1,2 @@
+-- truncate Ejb_tmc_booking_data;
+-- ALTER TABLE Ejb_tmc_booking_data AUTO_INCREMENT = 1;
