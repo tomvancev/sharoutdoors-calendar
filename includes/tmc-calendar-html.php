@@ -23,8 +23,6 @@ $minimumStay = 2;
     </div>
     <p class='small-text'>* Minimum stay is <?= $minimumStay ?> nights</p>
     <button id="create-button">Book Now!</button>
-    </div>
-    </div>
   </div>
 </div>
   <?php
