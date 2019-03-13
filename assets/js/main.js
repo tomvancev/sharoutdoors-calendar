@@ -48,8 +48,10 @@ function addToCart( data ) {
         contentType:'application/json',
         success: function( data ) {
             alert( 'Successfully added to cart' );
+            location.href = SETTINGS.cart_url;
         }, error: function( err ) {
-          a = err;console.log( err.responseJSON.code );
+          a = err;
+          alert( err.responseJSON.code );
         }
       }
     );
@@ -90,15 +92,21 @@ function addToCart( data ) {
 /***************************************** ****** ***********************************************/
 
 function getEvents() {
+  var resultObj;
   jQuery.ajax( SETTINGS.api_url,
     {
       method: 'GET',
       success: function( data ) {
         Events = [];
-        JSON.parse( data ).forEach(function( element ) {
-          console.log( element );
-          new EventModel( element );
-        });
+        resultObj = JSON.parse( data );
+        if ( typeof 'object' ===  resultObj  && value.constructor === Array ) {
+          resultObj.forEach(function( element ) {
+            console.log( element );
+            new EventModel( element );
+          });
+        }else {
+          console.log( resultObj );
+        }
 
       },
       error: function( err ) {
@@ -171,7 +179,9 @@ function getEvents() {
 
   function DisableSpecificDates( date ) {
       var currentdate = moment( date, 'YYYY-MM-DD' ).format( 'YYYY-MM-DD' ), i;
-
+      if ( 0  === Events.length ) {
+        return [true];
+      }
      for ( i = 0; i < Events.length; i++ ) {
        if ( currentdate > Events[i].start && currentdate < Events[i].end ) {
        return [false];

@@ -7,7 +7,7 @@ class CalendarDatabase {
 
   function __construct(){
     global $wpdb;
-    $this->table = $wpdb->prefix . 'tmc_booking_data';
+    $this->table = TMC_CALENDAR_TABLE;
 
   }
 
@@ -74,18 +74,18 @@ class CalendarDatabase {
 /***************************INITIATION OF PLUGIN CODE! ************************************/
 /******************************************************************************************/
 
-  public function initPlugin(){
+  public static function initPlugin(){
     // NEED TO TEST!
     global $wpdb;
-    $createTableSql = "CREATE TABLE IF NOT EXISTS {$this->table}(
+    $createTableSql = "CREATE TABLE IF NOT EXISTS Ejb_tmc_booking_data(
     id INT(6) unsigned NOT NULL auto_increment,
     date_from DATE NOT NULL,
     date_to DATE NOT NULL,
     post_id BIGINT UNSIGNED,
     PRIMARY KEY  (id))
     COLLATE {$wpdb->collate}";
-
-    $createInsertProcedureSql = "CREATE DEFINER=`root`@`localhost` PROCEDURE `insert_booking_data`( IN dateFrom DATE
+    $dropInsertProcedureSql = "DROP PROCEDURE IF EXISTS `insert_booking_data`;";
+    $createInsertProcedureSql = "CREATE PROCEDURE `insert_booking_data`( IN dateFrom DATE
     , IN dateTo DATE
     , IN postId BIGINT
     )
@@ -124,7 +124,8 @@ class CalendarDatabase {
     		SELECT 'INVALID DATE RANGE (MUST BE AT LEAST 3 DAYS)' AS 'ERROR';
           END IF;
   END";
-    $createCheckAvailabilityProcedure = "CREATE DEFINER=`root`@`localhost` PROCEDURE `check_availability`(IN dateFrom date, IN dateTo date )
+    $dropCheckAvailabilityProcedure = "DROP PROCEDURE IF EXISTS `check_availability`;";
+    $createCheckAvailabilityProcedure = "CREATE PROCEDURE `check_availability`(IN dateFrom date, IN dateTo date )
     BEGIN
         select COUNT(*)
     		from Ejb_tmc_booking_data
@@ -142,12 +143,12 @@ class CalendarDatabase {
     END";
 
     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    $result1 = dbDelta( $createTableSql );
-    $result2 = dbDelta( $createInsertProcedureSql );
-    $result3 = dbDelta( $createCheckAvailabilityProcedure );
+    dbDelta( $createTableSql );
+    $wpdb->query($dropCheckAvailabilityProcedure);
+    $wpdb->query($createCheckAvailabilityProcedure);
+    $wpdb->query($dropInsertProcedureSql);
+    $wpdb->query($createInsertProcedureSql);
 
-
-    return array('resultCreateTable' => $result1, 'resultCreateProcedure' => $result2, 'resultCheckAvailabilityProcedure' => $result3);
 
   }
 

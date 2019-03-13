@@ -8,6 +8,7 @@ Author: Tomce
 define( "TMC_CALENDAR_TABLE",'Ejb_tmc_booking_data');
 define( "TMC_CALENDAR_TABLE_PK",'id');
 
+
 define( "TMC_PAGE_NAME", 'calendar' );
 define( "TMC_POST_TYPE_EVENT", 'calendar-event');
 define( "TMC_PLUGIN_URL", plugins_url( '/', __FILE__ ) );
@@ -23,3 +24,5 @@ include(TMC_PLUGIN_INCLUDES_DIR . 'tmc-enqueue-scripts.php');
 include(TMC_PLUGIN_INCLUDES_DIR . 'tmc-calendar-html.php');
 include(TMC_PLUGIN_INCLUDES_DIR . 'tmc-woocommerce-integration.php');
 include(TMC_PLUGIN_INCLUDES_DIR . 'tmc-admin-page.php');
+
+register_activation_hook( __FILE__, array( 'CalendarDatabase', 'initPlugin' ) );

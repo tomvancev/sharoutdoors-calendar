@@ -30,7 +30,8 @@ function tmc_rest_info(){
   $settings = array(
   	'api_url'        => get_rest_url() . 'tmc/v1/index',
     '_regular_price' => get_post_meta(get_the_id(), '_regular_price',true ),
-    'post_id'        => get_the_id()
+    'post_id'        => get_the_id(),
+    'cart_url'       => site_url( $path = 'cart', $scheme = null )
   );
   wp_localize_script( 'tmc-main', 'SETTINGS', $settings );
 }
